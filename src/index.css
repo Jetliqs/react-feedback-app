@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6em;
+  background-color: #23395d;
+  color: #fff;
+  height: 100vh;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+header .container a {
+  text-decoration: none;
+  color: #ff6a95;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 500px;
+  padding: 10px;
+  margin: 15px;
+  position: relative;
+  display: flex;
+}
+
+.card.reverse {
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+.num-display {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff6a95;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  top: -10px;
+  left: -10px;
+}
+
+.text-display {
+  justify-self: center;
+  align-self: center;
+  padding: 20px 20px;
+}
+
+.close {
+  border: none;
+  background-color: transparent;
+  color: purple;
+  padding: 0px;
+  cursor: pointer;
+  position: absolute;
+  right: 30px;
+  top: 10px;
+}
+
+.close:hover {
+  transform: scale(1.2);
+  color: red;
+}
+
+.edit {
+  border: none;
+  background-color: transparent;
+  color: purple;
+  padding: 0px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.edit:hover {
+  transform: scale(1.2);
+  color: red;
+}
+
+.feedback-stats {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+}
+
+.feedback-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feedback-form h2 {
+  width: 60%;
+  text-align: center;
+  margin: 15px;
+}
+
+.feedback-rating {
+  width: 60%;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  padding: 10px;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+.feedback-rating li {
+  list-style: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.feedback-rating li label {
+  list-style: none;
+  position: absolute;
+  cursor: pointer;
+  left: 15px;
+  top: 5px;
+  user-select: auto;
+  -webkit-user-select: none;
+}
+
+.feedback-rating li input {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.08);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.feedback-rating li input:hover {
+  transform: scale(1.2);
+}
+
+.feedback-rating li label[for='num10'] {
+  left: 11px;
+}
+
+.feedback-rating li input:checked {
+  appearance: none;
+  background-color: #ff6a95;
+  color: white;
+}
+
+/* 
+.feedback-rating .rating {
+  margin: 5px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #23395d;
+  color: #ff6a95;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.feedback-rating .rating:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  color: #23395d;
+  background-color: #ff6a95;
+} */
+
+.input-area {
+  width: 90%;
+  margin: 15px auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 5px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.feedback-text {
+  width: 80%;
+  border-radius: 5px;
+  padding: 15px;
+  border: none;
+  font-size: 16px;
+}
+
+.feedback-text:focus {
+  border: none;
+  outline: none;
+}
+
+.btn {
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn:disabled {
+  background-color: rgb(126, 126, 126);
+  color: #fff;
+  transform: scale(1);
+  cursor: default;
+}
+
+.btn:hover:disabled {
+  transform: none;
+}
+
+.btn-primary {
+  background-color: #23395d;
+  color: #ff6a95;
+}
+
+.btn-secondary {
+  background-color: #ff6a95;
+  color: #23395d;
+}
+
+.feedback-form .message {
+  width: 85%;
+  margin: 5px;
+  text-align: center;
+  color: #23395d;
+  -webkit-text-stroke: 0.5px #ff6a95;
+}
+
+.about {
+  padding: 20px;
+  position: relative;
+}
+
+.about h1 {
+  padding-bottom: 20px;
+}
+
+.card a.link {
+  position: relative;
+  top: 20px;
+  right: 10px;
+}
+
+.link {
+  color: #ff6a95;
+}
