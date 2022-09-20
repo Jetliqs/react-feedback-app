@@ -6,7 +6,7 @@ function FeedbackStats() {
 
   let average =
     feedbacks.reduce((acc, curr) => {
-      return acc + curr.rating;
+      return acc + +curr.rating;
     }, 0) / feedbacks.length;
 
   average = average.toFixed(1).replace(/[.,]0$/, '');

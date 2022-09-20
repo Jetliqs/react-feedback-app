@@ -1,55 +1,61 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
-  const [feedbacks, setFeedback] = useState([
-    {
-      id: 1,
-      text: 'This is feedback item 1',
-      rating: 5,
-    },
-    {
-      id: 2,
-      text: 'This is feedback item 2',
-      rating: 7,
-    },
-    {
-      id: 3,
-      text: 'This is feedback item 3',
-      rating: 9,
-    },
-  ]);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [feedbacks, setFeedback] = useState([]);
   const [selectedFeedback, setSelectedFeedback] = useState({
     feedback: {},
     edit: false,
   });
 
-  const deleteFeedback = (id) => {
+  // updating the data on start
+  useEffect(() => {
+    fetchFeedbacks();
+  }, []);
+
+  // Fetching the data from the json mock server
+  const fetchFeedbacks = async () => {
+    const response = await fetch(`/feedbacks?_sort=id?_order=desc`);
+    const data = await response.json();
+    setFeedback(data);
+    setIsLoading(false);
+  };
+
+  //Delete the selected feedback from the json server
+  const deleteFeedback = async (id) => {
     if (window.confirm('Are you sure you want to delete this feedback?')) {
+      await fetch(`feedbacks/${id}`, { method: 'DELETE' });
       setFeedback(feedbacks.filter((feedback) => feedback.id !== id));
     }
   };
 
-  const generateRandomID = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    const id = Math.floor(Math.random() * (max - min)) + min;
-    return id;
-  };
+  // Adding the feedback to the json server
+  const addFeedback = async (newFeedback) => {
+    const response = await fetch('/feedbacks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newFeedback),
+    });
 
-  const addFeedback = (newFeedback) => {
-    newFeedback.id = generateRandomID(feedbacks.length + 1, 1000000);
-    setFeedback([newFeedback, ...feedbacks]);
-    console.log(newFeedback);
+    const data = await response.json();
+    setFeedback([data, ...feedbacks]);
+    console.log(data);
   };
 
   // const editFeedback = (updatedFeedback) => {
   //   setFeedback(updatedFeedback);
   // };
 
-  const updateFeedback = (id, updFeedback) => {
+  const updateFeedback = async (id, updFeedback) => {
+    const response = await fetch(`feedbacks/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updFeedback),
+    });
+
+    const data = await response.json();
     setFeedback(
       feedbacks.map((feedback) => {
         // we use the spread operator to replace the text and the rating
@@ -62,9 +68,9 @@ export const FeedbackProvider = ({ children }) => {
 
         if (feedback.id === id) {
           console.log(feedback);
-          console.log(updFeedback);
-          console.log({ ...feedback, ...updFeedback });
-          return { ...feedback, ...updFeedback };
+          console.log(data);
+          console.log({ ...feedback, ...data });
+          return { ...feedback, ...data };
         } else {
           return feedback;
         }
@@ -84,7 +90,7 @@ export const FeedbackProvider = ({ children }) => {
       value={{
         feedbacks,
         selectedFeedback,
-
+        isLoading,
         deleteFeedback,
         addFeedback,
         selectFeedback,
